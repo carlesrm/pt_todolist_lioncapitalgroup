@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/delete/{task}', [TaskController::class, 'deleteTask'])->name('tasks.delete');
 
-        Route::post('/share', [TaskController::class, 'shareTask'])->name('tasks.share');
+        Route::post('/share/{task}', [TaskController::class, 'shareTask'])->name('tasks.share');
     });
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');

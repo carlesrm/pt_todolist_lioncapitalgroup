@@ -18,7 +18,7 @@ return new class extends Migration
             $table->datetime('deadline');
             $table->string('status')->default('Pendiente');
             $table->unsignedBigInteger('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 

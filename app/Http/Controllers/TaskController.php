@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\TaskHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
     public function listTask()
     {
         $tasks = auth()->user()->tasks()->orderBy('created_at', 'asc')->get();
-        return view('dashboard', compact('tasks'));
+        $shared_tasks = auth()->user()->sharedTasks()->orderBy('created_at', 'asc')->get();
+
+        return view('dashboard', compact('tasks', 'shared_tasks'));
     }
 
     public function addTask()
@@ -94,8 +98,41 @@ class TaskController extends Controller
         return redirect(route('home'))->withErrors(['error' => 'Error al eliminar la tarea']);
     }
 
-    public function shareTask(Request $request)
+    public function shareTask($taskId, Request $request)
     {
+        $request->validate(['email' => 'required']);
 
+        $user = User::where('email', $request->email)->first();
+
+        if (!empty($user)) {
+            if (TaskHelper::checkTaskOwnership($taskId, $user->id)) {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'No se puede compartir esta tarea con el propietario',
+                ]);
+            }
+
+            if (TaskHelper::checkDuplicateSharing($taskId, $user->id)) {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'Ya se ha compartido esta tarea con este usuario'
+                ]);
+            }
+
+            DB::table('shared_tasks')->insert([
+                'task_id' => $taskId,
+                'user_id' => $user->id,
+            ]);
+
+            return response()->json([
+                'status' => 'ok',
+                'msg' => 'Se ha compartido esta tarea correctamente',
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'msg' => 'El usuario indicado no existe',
+        ]);
     }
 }
