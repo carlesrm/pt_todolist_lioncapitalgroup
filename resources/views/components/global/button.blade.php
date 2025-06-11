@@ -1,7 +1,7 @@
 {{-- resources/views/components/button.blade.php --}}
 
 @php
-$baseClasses = 'flex justify-center items-center transition-colors';
+$baseClasses = 'flex justify-center items-center cursor-pointer transition-colors';
 
     $typeClasses = [
         'ghost' => 'hover:bg-indigo-700 border hover:border-indigo-700 text-indigo-600 hover:text-white',

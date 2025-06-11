@@ -1,5 +1,5 @@
 <header class="fixed top-0 flex justify-center px-6 py-3 mb-6 w-full bg-gray-100 text-sm shadow-bottom z-10">
-    <div class="flex justify-between items-center gap-x-3 w-full lg:max-w-[1000px]">
+    <div class="flex flex-col xs:flex-row justify-between items-center gap-x-3 gap-y-3 w-full lg:max-w-[1000px]">
         <a
             href="{{ route('home') }}"
             class="p-1 hover:bg-indigo-700 border hover:border-indigo-700 text-indigo-600 hover:text-white transition-colors duration-150 text-sm leading-normal rounded-sm"

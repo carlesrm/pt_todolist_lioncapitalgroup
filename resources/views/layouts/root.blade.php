@@ -20,11 +20,13 @@
         </style>
     @endif
 </head>
-<body class="relative pt-14 min-h-screen bg-gray-100">
+<body class="relative pt-36 xs:pt-14 min-h-screen bg-gray-100">
 
     @include('layouts.header')
 
-    @yield('content')
+    <main class="flex justify-center max-w-[800px] mx-auto pt-14 px-4">
+        @yield('content')
+    </main>
 
 </body>
 </html>

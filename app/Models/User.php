@@ -46,6 +46,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'owner_id', 'id');
+    }
+
     public static function createUser(string $name, string $email, string $password): bool
     {
         $user = new User();
@@ -53,6 +58,6 @@ class User extends Authenticatable
         $user->email = $email;
         $user->password = $password;
 
-        return !!$user->save();
+        return $user->save();
     }
 }

@@ -1,0 +1,12 @@
+.toggle-status-btn.pending {
+    background-color: oklch(79.5% 0.184 86.047);
+}
+.toggle-status-btn.pending:hover {
+    background-color: oklch(68.1% 0.162 75.834);
+}
+.toggle-status-btn.completed {
+    background-color: oklch(72.3% 0.219 149.579);
+}
+.toggle-status-btn.completed:hover {
+    background-color: oklch(62.7% 0.194 149.214);
+}

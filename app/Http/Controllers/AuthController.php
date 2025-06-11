@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    function loginView(Request $request)
+    function login(Request $request)
     {
         return view('auth.login');
     }
@@ -29,7 +29,7 @@ class AuthController extends Controller
         return redirect(route('login'))->withErrors(['Email o contraseña incorrectos']);
     }
 
-    function registerView(Request $request)
+    function register(Request $request)
     {
         return view('auth.register');
     }
@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         $user = User::createUser($request->name, $email, $password);
 
-        if ($user) {
+        if (!empty($user)) {
             if (auth()->attempt(['email' => $email, 'password' => $password])) {
                 return redirect()->intended(route('home'));
             }
@@ -62,6 +62,6 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return redirect(route('home'));
+        return redirect(route('login'));
     }
 }
