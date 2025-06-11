@@ -6,3 +6,8 @@ Pasos a seguir para el todolist:
 - Crear controladores con sus respectivas funciones.
 - Desde el front, añadir funcionalidad para llamar e interactuar con el backend.
 - Maquetar web.
+
+Pasos a seguir para la instalación del proyecto.
+
+- Ejecutar comando composer install
+- Ejecutar php artisan key:generate
