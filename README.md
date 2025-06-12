@@ -10,7 +10,10 @@ Crear el .env con el archivo adjuntado en el correo antes de proseguir.
 Para la instalación y ejecución del proyecto, hay que ejecutar los siguientes comandos.
 
 - Instalación
-  - `npm install && composer install && npm run build && php artisan key:generate && php artisan migrate:fresh --seed`
+  - Este es el comando principal
+    - `npm install && composer install && npm run build && php artisan key:generate && php artisan migrate:fresh --seed`
+  - Si no funciona el anterior, prueba con el siguiente
+    - `npm install; composer install; npm run build; php artisan key:generate; php artisan migrate:fresh --seed`
 - Ejecución de proyecto
   - `php artisan serve`
 
