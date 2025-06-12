@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class Task extends Model
 {
+    use HasFactory;
     protected $table = 'tasks';
 
     protected $fillable = ['title', 'description', 'deadline'];
 
-    public function taskOwner()
+    public function user()
     {
         return $this->belongsTo(User::class, 'owner_id');
     }

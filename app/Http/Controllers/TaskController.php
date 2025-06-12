@@ -24,7 +24,7 @@ class TaskController extends Controller
 
         $shared_tasks = auth()->user()
             ->sharedTasks()
-            ->with('taskOwner')
+            ->with('user')
             ->where('status', $filter_status)
             ->orderBy('deadline', $sort_by_deadline)
             ->get();
