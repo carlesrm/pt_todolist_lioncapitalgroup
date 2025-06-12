@@ -8,14 +8,26 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    public function listTask()
+    public function listTask(Request $request)
     {
-        $tasks = auth()->user()->tasks()->orderBy('created_at', 'asc')->get();
-        $shared_tasks = auth()->user()->sharedTasks()->with('taskOwner')->get();
+        $sort_by_deadline = $request->get('sort_deadline', 'asc');
+        $filter_status = $request->get('filter_status', 'Pendiente');
+
+        $tasks = auth()->user()
+            ->tasks()
+            ->where('status', $filter_status)
+            ->orderBy('deadline', $sort_by_deadline)
+            ->get();
+
+        $shared_tasks = auth()->user()
+            ->sharedTasks()
+            ->with('taskOwner')
+            ->where('status', $filter_status)
+            ->orderBy('deadline', $sort_by_deadline)
+            ->get();
 
         return view('dashboard', compact('tasks', 'shared_tasks'));
     }

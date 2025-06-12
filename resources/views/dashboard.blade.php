@@ -4,23 +4,42 @@
 
 @section('content')
     <div class="flex flex-col w-full">
-        <div class="flex justify-between">
-            <h1 class="text-2xl">Lista de tareas</h1>
-            {{--  Añadir tarea  --}}
-            <x-global.button type="filled" link="{{route('tasks.add')}}" classnames="gap-x-1">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="4 4 16 16"
-                    width="0.8rem"
-                    height="0.8rem"
-                >
-                    <path
-                        fill="currentColor"
-                        d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"
-                    ></path>
-                </svg>
-                <span>Añadir tarea</span>
-            </x-global.button>
+        <div class="flex flex-col gap-y-2">
+            <div class="flex justify-between">
+                <h1 class="text-2xl">Lista de tareas</h1>
+                {{--  Añadir tarea  --}}
+                <x-global.button type="filled" link="{{route('tasks.add')}}" classnames="gap-x-1">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="4 4 16 16"
+                        width="0.8rem"
+                        height="0.8rem"
+                    >
+                        <path
+                            fill="currentColor"
+                            d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"
+                        ></path>
+                    </svg>
+                    <span>Añadir tarea</span>
+                </x-global.button>
+            </div>
+            {{--  Filtros de tareas  --}}
+            <div class="flex flex-col xs:flex-row xs:justify-between gap-y-2">
+                <div class="flex flex-col xs:items-start">
+                    <h3>Estado de tarea</h3>
+                    <select class="js-filter-status border rounded-md">
+                        <option {{ request('filter_status') == 'Pendiente' ? 'selected' : '' }} value="Pendiente">Pendiente</option>
+                        <option {{ request('filter_status') == 'Completada' ? 'selected' : '' }} value="Completada">Completada</option>
+                    </select>
+                </div>
+                <div class="flex flex-col xs:items-end">
+                    <h3>Ordenar por</h3>
+                    <select class="js-filter-orderby border rounded-md">
+                        <option {{ request('sort_deadline') == 'asc' ? 'selected' : '' }} value="asc">Fecha vencimiento (asc)</option>
+                        <option {{ request('sort_deadline') == 'desc' ? 'selected' : '' }} value="desc">Fecha vencimiento (desc)</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <div class="flex flex-col gap-y-3 mt-3">
@@ -126,7 +145,7 @@
 
         </div>
 
-        <div class="flex justify-between mt-3">
+        <div class="flex justify-between mt-6">
             <h1 class="text-2xl">Lista de tareas compartidas</h1>
         </div>
         @if(!empty($shared_tasks) && count($shared_tasks) > 0)
@@ -221,7 +240,6 @@
 
             document.querySelectorAll('.js-share-form').forEach(form => {
                 form.addEventListener('submit', async function (e) {
-                    console.log('inutil')
                     e.preventDefault();
 
                     const taskId = this.closest('.js-task-item').dataset.taskId;
@@ -242,6 +260,28 @@
                     });
                 })
             })
+
+            document.querySelector('.js-filter-status').addEventListener('change', function (e) {
+                const selectedStatus = e.target.value;
+                const url = new URL(window.location.href);
+
+                // Set or delete the `status` query parameter
+                url.searchParams.set('filter_status', selectedStatus);
+
+                // Refresh page with updated query string
+                window.location.href = url.toString();
+            });
+
+            document.querySelector('.js-filter-orderby').addEventListener('change', function (e) {
+                const selectedStatus = e.target.value;
+                const url = new URL(window.location.href);
+
+                // Set or delete the `status` query parameter
+                url.searchParams.set('sort_deadline', selectedStatus);
+
+                // Refresh page with updated query string
+                window.location.href = url.toString();
+            });
         });
     </script>
 @endsection

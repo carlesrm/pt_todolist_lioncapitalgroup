@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 use App\Models\SharedTask;
 use App\Models\Task;
-use Illuminate\Support\Facades\DB;
 
 class TaskHelper
 {
