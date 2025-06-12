@@ -53,7 +53,8 @@ class User extends Authenticatable
 
     public function sharedTasks()
     {
-        return $this->belongsToMany(Task::class, 'shared_tasks', 'user_id', 'task_id');
+        return $this->belongsToMany(Task::class, 'shared_tasks', 'user_id', 'task_id')
+            ->using(SharedTask::class);
     }
 
     public static function createUser(string $name, string $email, string $password): bool

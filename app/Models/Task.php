@@ -11,6 +11,11 @@ class Task extends Model
 
     protected $fillable = ['title', 'description', 'deadline'];
 
+    public function taskOwner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
     public function toggleStatus()
     {
         $this->status = $this->status === 'Completada' ? 'Pendiente' : 'Completada';

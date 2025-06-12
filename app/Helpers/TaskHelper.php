@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\SharedTask;
 use App\Models\Task;
 use Illuminate\Support\Facades\DB;
 
@@ -14,6 +15,6 @@ class TaskHelper
 
     public static function checkDuplicateSharing($taskId, $userId)
     {
-        return DB::table('shared_tasks')->where('task_id', $taskId)->where('user_id', $userId)->count() > 0;
+        return SharedTask::where('task_id', $taskId)->where('user_id', $userId)->count() > 0;
     }
 }

@@ -26,7 +26,7 @@
         <div class="flex flex-col gap-y-3 mt-3">
             {{--  Listado de tareas  --}}
             @foreach($tasks as $task)
-                <div class="js-task-item flex flex-col gap-y-2 p-2 border border-gray-200 rounded-md shadow" data-task-id="{{ $task->id }}">
+                <div class="js-task-item flex flex-col gap-y-2 p-2 border border-gray-200 rounded-md shadow-md" data-task-id="{{ $task->id }}">
                     <div class="flex justify-between items-center">
                         <div class="flex flex-col gap-y-1">
                             <div class="flex items-center gap-x-3">
@@ -126,14 +126,14 @@
 
         </div>
 
-        @if(!empty($shared_tasks))
-            <div class="flex justify-between mt-3">
-                <h1 class="text-2xl">Lista de tareas compartidas</h1>
-            </div>
+        <div class="flex justify-between mt-3">
+            <h1 class="text-2xl">Lista de tareas compartidas</h1>
+        </div>
+        @if(!empty($shared_tasks) && count($shared_tasks) > 0)
             <div class="flex flex-col gap-y-3 mt-3">
                 {{--  Listado de tareas  --}}
                 @foreach($shared_tasks as $task)
-                    <div class="js-task-item flex flex-col gap-y-2 p-2 border border-gray-200 rounded-md shadow" data-task-id="{{ $task->id }}">
+                    <div class="js-task-item flex flex-col gap-y-2 p-2 border border-gray-200 rounded-md shadow-md" data-task-id="{{ $task->id }}">
                         <div class="flex justify-between items-center">
                             <div class="flex flex-col gap-y-1">
                                 <div class="flex items-center gap-x-3">
@@ -155,7 +155,8 @@
                                 </div>
                             </div>
                             <div class="flex flex-col gap-y-1 items-end">
-                                <div class="flex items-center gap-x-1">
+                                <div class="flex flex-col items-end gap-x-1">
+                                    <p class="text-sm sm:text-base"><span class="font-semibold">Dueño:</span> {{ $task->taskOwner->email }}</p>
                                     {{--  Fecha de vencimiento de tarea  --}}
                                     <div class="hidden sm:flex items-center gap-x-1 mr-2 text-sm sm:text-base">
                                         <svg

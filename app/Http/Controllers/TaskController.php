@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\TaskHelper;
-use App\Http\Controllers\Controller;
+use App\Models\SharedTask;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class TaskController extends Controller
     public function listTask()
     {
         $tasks = auth()->user()->tasks()->orderBy('created_at', 'asc')->get();
-        $shared_tasks = auth()->user()->sharedTasks()->orderBy('created_at', 'asc')->get();
+        $shared_tasks = auth()->user()->sharedTasks()->with('taskOwner')->get();
 
         return view('dashboard', compact('tasks', 'shared_tasks'));
     }
@@ -59,18 +59,22 @@ class TaskController extends Controller
 
         $task = Task::find($taskId);
 
-        if (!empty($task)) {
+        if (!empty($task) && Auth::id() == $task->owner_id) {
             $task->update($validated);
+
+            return redirect()->route('home')->with('success', 'Tarea actualizada correctamente');
         }
 
-        return redirect()->route('home')->with('success', 'Tarea actualizada correctamente');
+        return redirect()->route('home')->withErrors(['error' => 'Error al actualizar la tarea']);
     }
 
     public function updateTaskStatus($taskId)
     {
         $task = Task::find($taskId);
+        $can_toggle_status = SharedTask::where('task_id', $taskId)->where('user_id', Auth::id())->exists() ||
+            $task->owner_id == Auth::id();
 
-        if ($task) {
+        if ($task && $can_toggle_status) {
             $updated_task = $task->toggleStatus();
 
             return response()->json([
@@ -89,7 +93,7 @@ class TaskController extends Controller
     {
         $task = Task::find($taskId);
 
-        if (!empty($task) && $task->owner_id === Auth::id()) {
+        if (!empty($task) && $task->owner_id == Auth::id()) {
             $task->delete();
 
             return redirect(route('home'))->with('success', 'Tarea eliminada correctamente');
@@ -103,8 +107,9 @@ class TaskController extends Controller
         $request->validate(['email' => 'required']);
 
         $user = User::where('email', $request->email)->first();
+        $isOwner = Task::where('id', $taskId)->where('owner_id', Auth::id())->exists();
 
-        if (!empty($user)) {
+        if (!empty($user) && $isOwner) {
             if (TaskHelper::checkTaskOwnership($taskId, $user->id)) {
                 return response()->json([
                     'status' => 'error',
@@ -119,7 +124,7 @@ class TaskController extends Controller
                 ]);
             }
 
-            DB::table('shared_tasks')->insert([
+            SharedTask::insert([
                 'task_id' => $taskId,
                 'user_id' => $user->id,
             ]);
@@ -132,7 +137,7 @@ class TaskController extends Controller
 
         return response()->json([
             'status' => 'error',
-            'msg' => 'El usuario indicado no existe',
+            'msg' => 'Ha ocurrido un error al intentar compartir esta tarea',
         ]);
     }
 }
