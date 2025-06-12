@@ -175,7 +175,7 @@
                             </div>
                             <div class="flex flex-col gap-y-1 items-end">
                                 <div class="flex flex-col items-end gap-x-1">
-                                    <p class="text-sm sm:text-base"><span class="font-semibold">Dueño:</span> {{ $task->taskOwner->email }}</p>
+                                    <p class="text-sm sm:text-base"><span class="font-semibold">Dueño:</span> {{ $task->user->email }}</p>
                                     {{--  Fecha de vencimiento de tarea  --}}
                                     <div class="hidden sm:flex items-center gap-x-1 mr-2 text-sm sm:text-base">
                                         <svg

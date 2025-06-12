@@ -24,7 +24,7 @@
 
     @include('layouts.header')
 
-    <main class="flex justify-center max-w-[800px] mx-auto pt-14 px-4">
+    <main class="flex justify-center max-w-[800px] mx-auto pt-14 px-4 pb-4">
         @yield('content')
     </main>
 

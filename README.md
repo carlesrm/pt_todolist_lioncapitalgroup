@@ -1,13 +1,15 @@
-Pasos a seguir para el todolist:
+Prerequisitos para iniciar aplicación:
+- php v8.4.4^
+- composer v2.8.3^
+- XAMPP v3.3.0^ con el modulo de MySQL en marcha
+- node v20.17.0^
+- npm v10.8.2^
 
-- Crear estructura de archivs básica con contenido dummy.
-- Añadir modelos de tareas / usuarios correspondientes.
-- Añadir seeders para tener una estructura de datos inicial con la que trabajar. 
-- Crear controladores con sus respectivas funciones.
-- Desde el front, añadir funcionalidad para llamar e interactuar con el backend.
-- Maquetar web.
+Crear el .env con el archivo adjuntado en el correo antes de proseguir.
 
-Pasos a seguir para la instalación del proyecto.
+Para la instalación y ejecución del proyecto, hay que ejecutar los siguientes comandos.
 
-- Ejecutar comando composer install
-- Ejecutar php artisan key:generate
+- Instalación
+  - `npm install && composer install && npm run build && php artisan key:generate && php artisan migrate:fresh --seed`
+- Ejecución de proyecto
+  - `php artisan serve`
