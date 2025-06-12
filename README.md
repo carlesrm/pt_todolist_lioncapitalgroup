@@ -13,3 +13,14 @@ Para la instalación y ejecución del proyecto, hay que ejecutar los siguientes 
   - `npm install && composer install && npm run build && php artisan key:generate && php artisan migrate:fresh --seed`
 - Ejecución de proyecto
   - `php artisan serve`
+
+Usuarios creados para la prueba con tareas preasignadas:
+- Admin User
+  - admin@example.com
+  - adminpass
+- Test User
+  - test@example.com
+  - testpass
+- Jane Doe
+  - jane@example.com
+  - janepass
