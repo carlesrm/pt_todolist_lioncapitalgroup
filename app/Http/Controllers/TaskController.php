@@ -11,27 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    public function listTask(Request $request)
-    {
-        $sort_by_deadline = $request->get('sort_deadline', 'asc');
-        $filter_status = $request->get('filter_status', 'Pendiente');
-
-        $tasks = auth()->user()
-            ->tasks()
-            ->where('status', $filter_status)
-            ->orderBy('deadline', $sort_by_deadline)
-            ->get();
-
-        $shared_tasks = auth()->user()
-            ->sharedTasks()
-            ->with('user')
-            ->where('status', $filter_status)
-            ->orderBy('deadline', $sort_by_deadline)
-            ->get();
-
-        return view('dashboard', compact('tasks', 'shared_tasks'));
-    }
-
     public function addTask()
     {
         return view('tasks.add');

@@ -4,10 +4,10 @@
 $baseClasses = 'flex justify-center items-center cursor-pointer transition-colors';
 
     $typeClasses = [
-        'ghost' => 'hover:bg-indigo-700 border hover:border-indigo-700 text-indigo-600 hover:text-white',
+        'ghost' => 'hover:bg-indigo-100 border hover:border-indigo-700 text-indigo-600',
         'filled' => 'bg-indigo-600 hover:bg-indigo-700 text-white',
         'underline' => '',
-    ][$type] ?? 'bg-blue-600 text-white';
+    ][$type] ?? 'bg-indigo-600 hover:bg-indigo-700 text-white';
 
     $sizeClasses = [
         'sm' => 'px-2 py-1 text-sm rounded-sm',

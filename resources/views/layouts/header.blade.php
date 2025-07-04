@@ -13,7 +13,7 @@
                 <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"></path>
             </svg>
         </a>
-        <h1 class="w-fit text-xl font-semibold">ToDoList App</h1>
+        <a href="{{route('home')}}" class="w-fit text-xl font-semibold">ToDoList App</a>
         @if (Route::has('login'))
             <nav class="flex items-center gap-4">
                 @auth
