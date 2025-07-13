@@ -4,7 +4,7 @@
 
 @section('content')
     <div
-        class="rounded-3xl px-5 max-w-2xl w-full text-center translate-y-10 animate-fade-in-up"
+        class="rounded-3xl mt-20 px-5 max-w-2xl w-full text-center translate-y-10 animate-fade-in-up"
     >
         <h1 class="text-5xl font-extrabold text-indigo-700 mb-6 leading-tight transition-all duration-700">
             Organiza tu vida, una tarea a la vez

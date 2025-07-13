@@ -1,7 +1,7 @@
 @extends('layouts.root')
 @section('title', 'Iniciar sesión')
 @section('content')
-    <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
+    <div class="mt-20 p-8 max-w-md w-full bg-white rounded-xl shadow-lg">
         <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Iniciar Sesión</h2>
 
         <form method="POST" action="{{route('login.post')}}" class="space-y-4">

@@ -3,7 +3,7 @@
 @section('title', 'Crear Cuenta')
 
 @section('content')
-    <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
+    <div class="p-8 mt-20 max-w-md w-full bg-white rounded-xl shadow-lg">
         <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Regístrate</h2>
 
         <form method="POST" action="{{route('register.post')}}" class="space-y-4">

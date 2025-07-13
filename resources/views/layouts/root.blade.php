@@ -20,12 +20,17 @@
         </style>
     @endif
 </head>
-<body class="relative pt-36 xs:pt-14 min-h-screen bg-indigo-50">
+<body class="relative min-h-screen bg-indigo-50 body-composition">
 
     @include('layouts.header')
 
-    <main class="flex justify-center max-w-[1000px] mx-auto pt-14 px-4 pb-4">
-        @yield('content')
+    <main class="flex">
+        @auth
+            @include('layouts.side-nav')
+        @endauth
+        <section class="flex justify-center max-w-[1280px] mx-auto pt-36 xs:pt-14">
+            @yield('content')
+        </section>
     </main>
 
 </body>
